@@ -41,7 +41,7 @@ public class App
 
         vencedor(isEven, jogadores);
 
-        in.close();
+        //in.close();
 
     }
 
@@ -100,9 +100,10 @@ public class App
 
     public static boolean ePar(int escolhaNumJogador, int escolhaNumMaquina)
     {
-        if((escolhaNumJogador + escolhaNumMaquina)%2 == 0)
+        int resultado = escolhaNumJogador + escolhaNumMaquina;
+        System.out.println("O resultado deu " + resultado);
+        if(resultado%2 == 0)
         {
-            System.out.println("O resultado deu " + (escolhaNumJogador + escolhaNumMaquina));
             return true;
         }
         
