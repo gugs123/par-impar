@@ -13,36 +13,61 @@ public class App
         int escolhaNumJogador;
         int escolhaNumMaquina;
         boolean isEven;
+        boolean repeat = false;
+
         do
         {
-            System.out.println("Escolha qual voce deseja? ");
-            System.out.println("P - Par \nI - Impar ");
-            System.out.print("Escolha: ");
-            String escolha = in.nextLine().trim().toLowerCase();
+            do
+            {
+                System.out.println("Escolha qual voce deseja? ");
+                System.out.println("P - Par \nI - Impar ");
+                System.out.print("Escolha: ");
+                String escolha = in.nextLine().trim().toLowerCase();
+                System.out.println();
+                char escolhaChar = escolha.charAt(0);
+                
+                
+                breakloop = escolhaParImpar(escolhaChar, jogadores);
+            }while(breakloop == false);
+
             System.out.println();
-            char escolhaChar = escolha.charAt(0);
+            System.out.print("Escolha um numero para jogar: ");
+            escolhaNumJogador = in.nextInt();
+
+            escolhaNumMaquina = numRandomMaquina(r);
+
+            System.out.println();
+            System.out.println("Voce jogou " + escolhaNumJogador);
+            System.out.println("Maquina jogou " + escolhaNumMaquina);
+
+            isEven = ePar(escolhaNumJogador, escolhaNumMaquina);
+
+            vencedor(isEven, jogadores);
+
+            //in.close();
+            //Scanner in = new Scanner(System.in);
+            repeat = repete(repeat, in);
             
-            
-            breakloop = escolhaParImpar(escolhaChar, jogadores);
-        }while(breakloop == false);
-
-        System.out.println();
-        System.out.println("Escolha um numero para jogar: ");
-        System.out.print("Escolha: ");
-        escolhaNumJogador = in.nextInt();
-
-        escolhaNumMaquina = numRandomMaquina(r);
-
-        System.out.println();
-        System.out.println("Voce jogou " + escolhaNumJogador);
-        System.out.println("Maquina jogou " + escolhaNumMaquina);
-
-        isEven = ePar(escolhaNumJogador, escolhaNumMaquina);
-
-        vencedor(isEven, jogadores);
-
+        
+        }while(repeat == true);
         //in.close();
 
+    }
+
+    public static boolean repete(boolean repeat, Scanner in)
+    {
+        String faznada = in.nextLine();
+        System.out.println("Deseja jogar novamente?\nDigite 1 para sim ou outra tecla para nao");
+        System.out.print("Escolha: ");
+        String escolha = in.nextLine();
+
+        switch(escolha)
+        {
+            case "1":
+            {return repeat = true;}
+            default:
+            {return repeat = false;}
+        }
     }
 
     public static void vencedor(boolean isEven, Jogo jogadores)
@@ -104,10 +129,14 @@ public class App
         System.out.println("O resultado deu " + resultado);
         if(resultado%2 == 0)
         {
+            System.out.println("O numero e PAR");
             return true;
         }
         
         else
-        {return false;}
+        {
+            System.out.println("O numero e IMPAR");
+            return false;
+        }
     }
 }
